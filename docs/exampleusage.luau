@@ -17,12 +17,12 @@ local Window = Tzar.new({
 -- 2. Create Tabs
 local MainTab = Window:AddTab({
 	Name = "Main",
-	Icon = "rbxassetid://10709752906", -- lucide-home
+	Icon = "home", -- lucide-home
 })
 
-local SettingsTab = Window:AddTab({
-	Name = "Settings",
-	Icon = "rbxassetid://10734918566", -- lucide-settings
+local VisualsTab = Window:AddTab({
+	Name = "Visuals",
+	Icon = "geist:eye", -- geist-eye
 })
 
 -- 3. Add Components to Main Tab
@@ -36,66 +36,40 @@ local MainSection = MainTab:AddSection({
 -- Paragraph
 MainSection:AddParagraph({
 	Title = "Welcome",
-	Description = "This is an example usage of the Tzar UI Library. Explore the controls below.",
+	Description = "This example demonstrates Tzar UI's Config System directly.",
 })
 
--- Button
-MainSection:AddButton({
-	Name = "Click Me",
-	Variant = "Primary",
-	Callback = function()
-		Window:Notify({
-			Title = "Button Pressed",
-			Message = "You clicked the primary button!",
-			Action = "Undo",
-			ActionCallback = function()
-				print("Undo clicked!")
-			end,
-		})
-	end,
-})
-
--- Button Group
-local Group = MainSection:AddButtonGroup()
-Group:AddButton({
-	Name = "Option A",
-	Callback = function()
-		print("Option A")
-	end,
-})
-Group:AddButton({
-	Name = "Option B",
-	Callback = function()
-		print("Option B")
-	end,
-})
-
--- Toggle
+-- Toggle with Flag
 MainSection:AddToggle({
-	Title = "Enable Feature",
-	Description = "Turns on the amazing feature.",
+	Title = "Auto Farm",
+	Flag = "AutoFarm", -- Access via Tzar.Flags["AutoFarm"]
+	Description = "Enables automatic farming functionality.",
 	Default = false,
 	Callback = function(state)
-		print("Feature is now:", state)
+		print("AutoFarm is now:", state)
 	end,
 })
 
--- Slider
+-- Slider with Flag
 MainSection:AddSlider({
 	Title = "WalkSpeed",
+	Flag = "WalkSpeed",
 	Min = 16,
 	Max = 100,
 	Default = 16,
 	Increment = 1,
 	Suffix = " studs/s",
 	Callback = function(value)
-		print("WalkSpeed set to:", value)
+		-- Example: Directly update character
+		-- pcall(function() game.Players.LocalPlayer.Character.Humanoid.WalkSpeed = value end)
+		print("WalkSpeed:", value)
 	end,
 })
 
--- Dropdown
+-- Dropdown with Flag
 MainSection:AddDropdown({
 	Title = "Select Team",
+	Flag = "TeamSelector",
 	Options = { "Red", "Blue", "Green", "Yellow" },
 	Default = "Red",
 	Multi = false,
@@ -104,63 +78,37 @@ MainSection:AddDropdown({
 	end,
 })
 
--- Multi Dropdown
-MainSection:AddDropdown({
-	Title = "Select Weapons",
-	Options = { "Sword", "Bow", "Magic", "Shield" },
-	Default = "Sword",
-	Multi = true,
-	Callback = function(selection)
-		print("Selected Weapons:", typeof(selection) == "table" and table.concat(selection, ", ") or selection)
-	end,
-})
-
--- Color Picker
-MainSection:AddColorPicker({
-	Title = "Accent Color",
-	Default = Color3.fromRGB(0, 170, 255),
-	Callback = function(color)
-		print("Color changed to:", color)
-	end,
-})
-
--- Keybind (Note: Toggle UI is already handled by MinimizeKey in Window options)
-MainSection:AddKeybind({
-	Title = "Quick Notify",
-	Default = Enum.KeyCode.N,
+-- 4. Using Flags Globally
+-- Buttons allow us to trigger actions that might need flag values
+MainSection:AddButton({
+	Name = "Print Config Values",
+	Variant = "Primary",
 	Callback = function()
+		-- We can access the values directly from the Tzar.Flags table!
+		local farm = Tzar.Flags["AutoFarm"]:GetValue()
+		local speed = Tzar.Flags["WalkSpeed"]:GetValue()
+
 		Window:Notify({
-			Title = "Keybind Pressed",
-			Message = "You pressed the N key!",
+			Title = "Current Config",
+			Message = string.format("AutoFarm: %s | Speed: %d", tostring(farm), speed),
+			Icon = "info",
 		})
 	end,
 })
 
--- TextBox
-MainSection:AddTextBox({
-	Title = "Player Name",
-	Placeholder = "Enter username...",
-	ClearOnFocus = true,
-	Callback = function(text)
-		Window:Notify({
-			Title = "Input Received",
-			Message = "Hello, " .. text .. "!",
-		})
+-- 5. Visuals Tab Components
+local ColorsSection = VisualsTab:AddSection({ Name = "Theme" })
+
+ColorsSection:AddColorPicker({
+	Title = "ESP Color",
+	Flag = "ESPColor",
+	Default = Color3.fromRGB(0, 255, 128),
+	Callback = function(color)
+		print("ESP Color:", color)
 	end,
 })
 
--- 4. Components in Settings Tab
-local ConfigSection = SettingsTab:AddSection({
-	Name = "Configuration",
-})
-
-ConfigSection:AddToggle({
-	Title = "Dark Mode",
-	Default = true,
-	Callback = function(state)
-		print("Dark mode:", state)
-	end,
-})
+-- 6. Settings Tab is automatically created!
 
 -- 5. Select the first tab
 Window:SelectTab(1)

@@ -1,39 +1,38 @@
 # Tzar UI Library
 
-Современная UI библиотека для Roblox с системой конфигов, профилей и
-автосохранения.
+Modern UI library for Roblox with config system and auto-save.
 
-## Установка
+## Installation
 
 ```lua
 local Tzar = loadstring(game:HttpGet("URL_TO_TZAR"))()
--- или
+-- or
 local Tzar = require(path.to.Tzar)
 ```
 
 ---
 
-## Быстрый старт
+## Quick Start
 
 ```lua
 local Tzar = require("./src")
 
--- Создание окна
+-- Create window
 local Window = Tzar.new({
     Title = "My Script",
     MinimizeKey = Enum.KeyCode.RightControl,
 })
 
--- Создание вкладки
+-- Create tab
 local MainTab = Window:AddTab({
     Name = "Main",
     Icon = "home",
 })
 
--- Создание секции
+-- Create section
 local Section = MainTab:AddSection({ Name = "Features" })
 
--- Добавление Toggle с Flag (автосохранение)
+-- Add Toggle with Flag (auto-save)
 Section:AddToggle({
     Title = "Auto Farm",
     Flag = "AutoFarm",
@@ -43,77 +42,77 @@ Section:AddToggle({
     end,
 })
 
--- Доступ к значению через Flags
+-- Access value via Flags
 print(Tzar.Flags["AutoFarm"]:GetValue())
 ```
 
 ---
 
-## Window (Окно)
+## Window
 
 ```lua
 local Window = Tzar.new({
     Title = "Application Title",
-    MinimizeKey = Enum.KeyCode.RightControl, -- Клавиша сворачивания
+    MinimizeKey = Enum.KeyCode.RightControl, -- Minimize key
 })
 ```
 
-### Методы Window
+### Window Methods
 
-| Метод                     | Описание                |
-| ------------------------- | ----------------------- |
-| `Window:AddTab(options)`  | Создать вкладку         |
-| `Window:SelectTab(index)` | Переключить на вкладку  |
-| `Window:Notify(options)`  | Показать уведомление    |
-| `Window:Minimize()`       | Свернуть в мини-бар     |
-| `Window:Restore()`        | Развернуть из мини-бара |
-| `Window:Toggle()`         | Переключить свёрнутость |
-| `Window:Destroy()`        | Закрыть и уничтожить    |
+| Method                    | Description           |
+| ------------------------- | --------------------- |
+| `Window:AddTab(options)`  | Create tab            |
+| `Window:SelectTab(index)` | Switch to tab         |
+| `Window:Notify(options)`  | Show notification     |
+| `Window:Minimize()`       | Minimize to mini-bar  |
+| `Window:Restore()`        | Restore from mini-bar |
+| `Window:Toggle()`         | Toggle minimize state |
+| `Window:Destroy()`        | Close and destroy     |
 
 ---
 
-## Tab (Вкладка)
+## Tab
 
 ```lua
 local Tab = Window:AddTab({
     Name = "Tab Name",
-    Icon = "home",           -- Название иконки (lucide/geist)
-    LayoutOrder = 1,         -- Порядок в списке
+    Icon = "home",           -- Icon name (lucide/geist)
+    LayoutOrder = 1,         -- Order in list
 })
 ```
 
-### Иконки
+### Icons
 
-Поддерживаются иконки из Lucide и Geist:
+Supports icons from Lucide and Geist:
 
 ```lua
 Icon = "home"          -- Lucide: home
 Icon = "settings"      -- Lucide: settings
 Icon = "geist:eye"     -- Geist: eye
-Icon = "lucide:star"   -- Lucide: star (явное указание)
+Icon = "lucide:star"   -- Lucide: star (explicit)
 ```
 
-### Методы Tab
+### Tab Methods
 
-| Метод                     | Описание              |
-| ------------------------- | --------------------- |
-| `Tab:AddSection(options)` | Создать секцию        |
-| `Tab:AddButtonGroup()`    | Создать группу кнопок |
+| Method                    | Description         |
+| ------------------------- | ------------------- |
+| `Tab:AddSection(options)` | Create section      |
+| `Tab:AddButtonGroup()`    | Create button group |
 
 ---
 
-## Section (Секция)
+## Section
 
 ```lua
 local Section = Tab:AddSection({
     Name = "Section Name",
-    Collapsed = false,       -- Свёрнута по умолчанию
+    Collapsed = false,       -- Collapsed by default
 })
 ```
 
-### Методы Section
+### Section Methods
 
-Секция содержит все компоненты:
+Section contains all components:
 
 ```lua
 Section:AddParagraph(options)
@@ -129,20 +128,20 @@ Section:AddButtonGroup()
 
 ---
 
-## Компоненты
+## Components
 
-### Paragraph (Текст)
+### Paragraph
 
 ```lua
 Section:AddParagraph({
-    Title = "Заголовок",
-    Description = "Описание текста",
+    Title = "Title",
+    Description = "Description text",
 })
 ```
 
 ---
 
-### Button (Кнопка)
+### Button
 
 ```lua
 Section:AddButton({
@@ -154,12 +153,12 @@ Section:AddButton({
 })
 ```
 
-**Варианты стилей:** `Primary` (зелёный), `Secondary` (серый), `Outline`
-(прозрачный), `Destroy` (красный)
+**Style variants:** `Primary` (green), `Secondary` (gray), `Outline`
+(transparent), `Destroy` (red)
 
 ---
 
-### ButtonGroup (Группа кнопок)
+### ButtonGroup
 
 ```lua
 local Group = Section:AddButtonGroup()
@@ -178,13 +177,13 @@ Group:AddButton({
 
 ---
 
-### Toggle (Переключатель)
+### Toggle
 
 ```lua
 local toggle = Section:AddToggle({
     Title = "Enable Feature",
     Description = "Optional description",
-    Flag = "FeatureEnabled",    -- ID для Config системы
+    Flag = "FeatureEnabled",    -- ID for Config system
     Default = false,
     Callback = function(state)
         print("State:", state)
@@ -192,7 +191,7 @@ local toggle = Section:AddToggle({
 })
 ```
 
-**Методы:**
+**Methods:**
 
 - `toggle:GetValue()` → `boolean`
 - `toggle:SetValue(bool)`
@@ -200,7 +199,7 @@ local toggle = Section:AddToggle({
 
 ---
 
-### Slider (Ползунок)
+### Slider
 
 ```lua
 local slider = Section:AddSlider({
@@ -209,25 +208,25 @@ local slider = Section:AddSlider({
     Min = 16,
     Max = 100,
     Default = 16,
-    Increment = 1,              -- Шаг значения
-    Suffix = " studs/s",        -- Суффикс после числа
+    Increment = 1,              -- Value step
+    Suffix = " studs/s",        -- Suffix after number
     Callback = function(value)
         print("Speed:", value)
     end,
 })
 ```
 
-**Методы:**
+**Methods:**
 
 - `slider:GetValue()` → `number`
 - `slider:SetValue(number)`
 
 ---
 
-### Dropdown (Выпадающий список)
+### Dropdown
 
 ```lua
--- Одиночный выбор
+-- Single selection
 local dropdown = Section:AddDropdown({
     Title = "Select Team",
     Flag = "SelectedTeam",
@@ -239,7 +238,7 @@ local dropdown = Section:AddDropdown({
     end,
 })
 
--- Множественный выбор
+-- Multi selection
 Section:AddDropdown({
     Title = "Select Items",
     Flag = "SelectedItems",
@@ -247,7 +246,7 @@ Section:AddDropdown({
     Default = {"Item1", "Item2"},
     Multi = true,
     Callback = function(selected)
-        -- selected это таблица
+        -- selected is a table
         for _, item in ipairs(selected) do
             print(item)
         end
@@ -255,17 +254,17 @@ Section:AddDropdown({
 })
 ```
 
-**Методы:**
+**Methods:**
 
-- `dropdown:GetValue()` → `string` или `table` (для Multi)
+- `dropdown:GetValue()` → `string` or `table` (for Multi)
 - `dropdown:SetValue(value)`
-- `dropdown:Refresh(options, default)` — обновить список
-- `dropdown:SelectAll()` — выбрать все (Multi)
-- `dropdown:DeselectAll()` — снять выбор (Multi)
+- `dropdown:Refresh(options, default)` — update list
+- `dropdown:SelectAll()` — select all (Multi)
+- `dropdown:DeselectAll()` — deselect all (Multi)
 
 ---
 
-### Keybind (Горячая клавиша)
+### Keybind
 
 ```lua
 local keybind = Section:AddKeybind({
@@ -278,22 +277,22 @@ local keybind = Section:AddKeybind({
 })
 ```
 
-**Методы:**
+**Methods:**
 
 - `keybind:GetValue()` / `keybind:GetKey()` → `Enum.KeyCode`
 - `keybind:SetValue(key)` / `keybind:SetKey(key)`
 - `keybind:IsPressed()` → `boolean`
 
-**Управление:**
+**Controls:**
 
-- Клик по кнопке — начать запись
-- Нажать клавишу — установить
-- `Escape` — отмена
-- `Backspace` — очистить (None)
+- Click button — start recording
+- Press key — set key
+- `Escape` — cancel
+- `Backspace` — clear (None)
 
 ---
 
-### TextBox (Текстовое поле)
+### TextBox
 
 ```lua
 local textbox = Section:AddTextBox({
@@ -308,14 +307,14 @@ local textbox = Section:AddTextBox({
 })
 ```
 
-**Методы:**
+**Methods:**
 
 - `textbox:GetValue()` → `string`
 - `textbox:SetValue(string)`
 
 ---
 
-### ColorPicker (Выбор цвета)
+### ColorPicker
 
 ```lua
 local colorpicker = Section:AddColorPicker({
@@ -328,22 +327,22 @@ local colorpicker = Section:AddColorPicker({
 })
 ```
 
-**Методы:**
+**Methods:**
 
 - `colorpicker:GetValue()` → `Color3`
 - `colorpicker:SetValue(Color3)`
-- `colorpicker:Toggle()` — открыть/закрыть пикер
+- `colorpicker:Toggle()` — open/close picker
 
 ---
 
-## Notifications (Уведомления)
+## Notifications
 
 ```lua
 Window:Notify({
     Title = "Success",
     Message = "Operation completed!",
-    Duration = 5,                    -- Секунд (по умолчанию 5)
-    Action = "Undo",                 -- Опциональная кнопка
+    Duration = 5,                    -- Seconds (default 5)
+    Action = "Undo",                 -- Optional button
     ActionCallback = function()
         print("Undo clicked")
     end,
@@ -352,51 +351,51 @@ Window:Notify({
 
 ---
 
-## Config System (Система конфигов)
+## Config System
 
-Tzar автоматически создаёт вкладку **Settings** с управлением конфигами.
+Tzar automatically creates a **Settings** tab with config management.
 
-### Flags (Флаги)
+### Flags
 
-Любой компонент с параметром `Flag` регистрируется в глобальном реестре:
+Any component with a `Flag` parameter is registered in the global registry:
 
 ```lua
--- Создание с Flag
+-- Create with Flag
 Section:AddToggle({
     Title = "Feature",
-    Flag = "MyFeature",  -- ← ID флага
+    Flag = "MyFeature",  -- ← Flag ID
     Default = false,
 })
 
--- Доступ к значению откуда угодно
+-- Access value from anywhere
 local value = Tzar.Flags["MyFeature"]:GetValue()
 
--- Изменение значения
+-- Change value
 Tzar.Flags["MyFeature"]:SetValue(true)
 ```
 
 ### AutoSave / AutoLoad
 
-| Настройка | По умолчанию | Описание                              |
-| --------- | ------------ | ------------------------------------- |
-| AutoSave  | `true`       | Автоматически сохранять при изменении |
-| AutoLoad  | `true`       | Автоматически загружать при запуске   |
+| Setting  | Default | Description          |
+| -------- | ------- | -------------------- |
+| AutoSave | `true`  | Auto-save on change  |
+| AutoLoad | `true`  | Auto-load on startup |
 
-Настройки доступны в **Settings → Configuration**.
+Settings available in **Settings → Configuration**.
 
-### Профили
+### Profiles
 
-- **Default** — профиль по умолчанию (нельзя удалить)
-- Можно создавать неограниченное количество профилей
-- Переключение профилей мгновенно применяет все значения
+- **Default** — default profile (cannot be deleted)
+- Unlimited custom profiles
+- Profile switching instantly applies all values
 
-### Структура файлов
+### File Structure
 
 ```
 TzarConfigs/
-├── Default.json      -- Профиль
-├── MyProfile.json    -- Кастомный профиль
-└── metrics.json      -- Настройки (AutoSave, AutoLoad, LastProfile)
+├── Default.json      -- Profile
+├── MyProfile.json    -- Custom profile
+└── metrics.json      -- Settings (AutoSave, AutoLoad, LastProfile)
 ```
 
 ---
@@ -406,50 +405,50 @@ TzarConfigs/
 ### Tzar
 
 ```lua
-Tzar.new(options)           -- Создать окно
-Tzar.Flags                  -- Таблица всех зарегистрированных элементов
-Tzar.Components             -- Доступ к классам компонентов
+Tzar.new(options)           -- Create window
+Tzar.Flags                  -- Table of all registered elements
+Tzar.Components             -- Access to component classes
 ```
 
-### Общие методы компонентов
+### Common Component Methods
 
-Все input-компоненты имеют единый интерфейс:
+All input components have a unified interface:
 
-| Метод                    | Описание                  |
-| ------------------------ | ------------------------- |
-| `GetValue()`             | Получить текущее значение |
-| `SetValue(value)`        | Установить значение       |
-| `SetTitle(string)`       | Изменить заголовок        |
-| `SetDescription(string)` | Изменить описание         |
-| `SetVisible(bool)`       | Показать/скрыть           |
-| `Destroy()`              | Уничтожить элемент        |
+| Method                   | Description        |
+| ------------------------ | ------------------ |
+| `GetValue()`             | Get current value  |
+| `SetValue(value)`        | Set value          |
+| `SetTitle(string)`       | Change title       |
+| `SetDescription(string)` | Change description |
+| `SetVisible(bool)`       | Show/hide          |
+| `Destroy()`              | Destroy element    |
 
-### Сигналы
+### Signals
 
 ```lua
 -- Toggle
 toggle.OnToggle:Connect(function(state) end)
-toggle.Changed:Connect(function(state) end)  -- Алиас
+toggle.Changed:Connect(function(state) end)  -- Alias
 
 -- Slider, Dropdown, TextBox, ColorPicker, Keybind
 element.OnChanged:Connect(function(value) end)
-element.Changed:Connect(function(value) end)  -- Алиас
+element.Changed:Connect(function(value) end)  -- Alias
 ```
 
 ---
 
-## Пример полного скрипта
+## Full Example Script
 
 ```lua
 local Tzar = require("./src")
 
--- Окно
+-- Window
 local Window = Tzar.new({
     Title = "My Script v1.0",
     MinimizeKey = Enum.KeyCode.RightControl,
 })
 
--- Вкладки
+-- Tabs
 local MainTab = Window:AddTab({ Name = "Main", Icon = "home" })
 local VisualsTab = Window:AddTab({ Name = "Visuals", Icon = "eye" })
 local MiscTab = Window:AddTab({ Name = "Misc", Icon = "settings" })
@@ -463,7 +462,7 @@ FarmSection:AddToggle({
     Description = "Automatically farms resources",
     Default = false,
     Callback = function(state)
-        -- Логика авто-фарма
+        -- Auto-farm logic
     end,
 })
 
@@ -474,7 +473,7 @@ FarmSection:AddSlider({
     Max = 10,
     Default = 5,
     Callback = function(value)
-        -- Изменить скорость
+        -- Change speed
     end,
 })
 
@@ -530,7 +529,7 @@ SettingsSection:AddSlider({
     end,
 })
 
--- Уведомление при загрузке
+-- Notification on load
 Window:Notify({
     Title = "Loaded",
     Message = "Script loaded successfully!",
@@ -542,24 +541,24 @@ return Window
 
 ---
 
-## Горячие клавиши
+## Hotkeys
 
-| Клавиша       | Действие                     |
-| ------------- | ---------------------------- |
-| `MinimizeKey` | Свернуть/развернуть UI       |
-| `Ctrl+K`      | Открыть Command Menu (поиск) |
+| Key           | Action                     |
+| ------------- | -------------------------- |
+| `MinimizeKey` | Minimize/restore UI        |
+| `Ctrl+K`      | Open Command Menu (search) |
 
 ---
 
-## Совместимость
+## Compatibility
 
-UI библиотека совместима со всеми популярными эксплойтами:
+UI library is compatible with all popular exploits:
 
 - Synapse X
 - Script-Ware
 - Fluxus
 - Solara
 - Wave
-- И другие
+- And others
 
-Файловые функции (`writefile`, `readfile`, и т.д.) автоматически определяются.
+File functions (`writefile`, `readfile`, etc.) are automatically detected.

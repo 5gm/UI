@@ -6,47 +6,47 @@
 ![Version](https://img.shields.io/badge/Version-1.0.0-blue?style=for-the-badge)
 ![License](https://img.shields.io/badge/License-Proprietary-red?style=for-the-badge)
 
-**Современная UI библиотека для Roblox с системой конфигов и автосохранением**
+**Modern UI library for Roblox with config system and auto-save**
 
-[Документация](./docs/README.md) • [Примеры](./docs/exampleusage.luau)
+[Documentation](./docs/README.md) • [Examples](./docs/exampleusage.luau)
 
 </div>
 
 ---
 
-## ✨ Особенности
+## ✨ Features
 
-- 🎨 **Современный дизайн** — Fluent-стиль интерфейс
-- 💾 **Система конфигов** — AutoSave, AutoLoad, профили
-- 🏷️ **Flags** — Глобальный доступ к элементам через `Tzar.Flags`
-- 🔍 **Command Menu** — Быстрый поиск элементов (Ctrl+K)
-- 📦 **Иконки** — Lucide, Geist, Craft и другие
-- 📱 **Мини-бар** — Сворачивание в компактную панель
-- 🔔 **Уведомления** — Система нотификаций
+- 🎨 **Modern Design** — Fluent-style interface
+- 💾 **Config System** — AutoSave, AutoLoad, profiles
+- 🏷️ **Flags** — Global element access via `Tzar.Flags`
+- 🔍 **Command Menu** — Quick element search (Ctrl+K)
+- 📦 **Icons** — Lucide, Geist, Craft and more
+- 📱 **Mini-bar** — Collapse to compact panel
+- 🔔 **Notifications** — Built-in notification system
 
 ---
 
-## 🚀 Быстрый старт
+## 🚀 Quick Start
 
 ```lua
 local Tzar = require(path.to.Tzar)
 
--- Создание окна
+-- Create window
 local Window = Tzar.new({
     Title = "My Script",
     MinimizeKey = Enum.KeyCode.RightControl,
 })
 
--- Вкладка с иконкой
+-- Tab with icon
 local MainTab = Window:AddTab({
     Name = "Main",
     Icon = "home",
 })
 
--- Секция
+-- Section
 local Section = MainTab:AddSection({ Name = "Features" })
 
--- Toggle с автосохранением
+-- Toggle with auto-save
 Section:AddToggle({
     Title = "Auto Farm",
     Flag = "AutoFarm",
@@ -56,79 +56,79 @@ Section:AddToggle({
     end,
 })
 
--- Доступ к значению из любого места
+-- Access value from anywhere
 print(Tzar.Flags["AutoFarm"]:GetValue())
 ```
 
 ---
 
-## 📦 Компоненты
+## 📦 Components
 
-| Компонент       | Описание                                          |
-| --------------- | ------------------------------------------------- |
-| **Toggle**      | Переключатель с описанием                         |
-| **Slider**      | Ползунок с min/max/step                           |
-| **Dropdown**    | Выпадающий список (одиночный/множественный выбор) |
-| **Keybind**     | Привязка клавиш                                   |
-| **TextBox**     | Текстовое поле                                    |
-| **ColorPicker** | Выбор цвета HSV                                   |
-| **Button**      | Кнопка с вариантами стилей                        |
-| **ButtonGroup** | Группа кнопок                                     |
-| **Paragraph**   | Текстовый блок                                    |
+| Component       | Description                         |
+| --------------- | ----------------------------------- |
+| **Toggle**      | Switch with description             |
+| **Slider**      | Slider with min/max/step            |
+| **Dropdown**    | Dropdown list (single/multi select) |
+| **Keybind**     | Key binding input                   |
+| **TextBox**     | Text input field                    |
+| **ColorPicker** | HSV color picker                    |
+| **Button**      | Button with style variants          |
+| **ButtonGroup** | Horizontal button group             |
+| **Paragraph**   | Text block                          |
 
 ---
 
-## ⚙️ Система конфигов
+## ⚙️ Config System
 
 ```lua
--- Все элементы с Flag автоматически сохраняются
+-- All elements with Flag are automatically saved
 Section:AddSlider({
     Title = "Speed",
-    Flag = "WalkSpeed",  -- ← Уникальный ID
+    Flag = "WalkSpeed",  -- ← Unique ID
     Min = 16,
     Max = 100,
     Default = 16,
 })
 
--- Глобальный доступ
+-- Global access
 Tzar.Flags["WalkSpeed"]:GetValue()
 Tzar.Flags["WalkSpeed"]:SetValue(50)
 
--- Вкладка Settings создаётся автоматически с:
--- • Переключателями AutoSave / AutoLoad
--- • Выбором профиля
--- • Кнопками Save / Load / Delete
+-- Settings tab is created automatically with:
+-- • AutoSave / AutoLoad toggles
+-- • Profile selection
+-- • Save / Load / Delete buttons
 ```
 
 ---
 
-## 🎨 Иконки
+## 🎨 Icons
 
 ```lua
-Icon = "home"           -- Lucide (по умолчанию)
+Icon = "home"           -- Lucide (default)
 Icon = "geist:eye"      -- Geist
-Icon = "lucide:star"    -- Явное указание
+Icon = "lucide:star"    -- Explicit prefix
 ```
 
-Поддерживаемые наборы: `lucide`, `geist`, `craft`, `solar`, `sf`
+Supported sets: `lucide`, `geist`, `craft`, `solar`, `sf`
 
 ---
 
-## 📖 Документация
+## 📖 Documentation
 
-Полная документация доступна в [`docs/README.md`](./docs/README.md)
+Full documentation available at [`docs/README.md`](./docs/README.md)
 
 ---
 
-## 📄 Лицензия
+## 📄 License
 
 Copyright © 2025 [tzar.cc](https://tzar.cc)
 
-Проприетарная лицензия:
+Proprietary License:
 
-- ✅ Использование разрешено
-- ✅ Упоминание автора обязательно
-- ❌ Модификация запрещена
-- ❌ Распространение кода запрещено
+- ✅ Usage allowed
+- ✅ Attribution required
+- ❌ Modification prohibited
+- ❌ Redistribution prohibited
 
-Подробности в файле [LICENSE](./LICENSE)
+See [LICENSE](./LICENSE) for details
